@@ -1,0 +1,83 @@
+#######################################
+# Syntax Coloring DFRobot_VoiceRecorder
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFRobot_VoiceRecorder	KEYWORD1
+DFRobot_VoiceRecorder_I2C	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+setButtonMode	KEYWORD2
+setLightMode	KEYWORD2
+setVoiceNumber	KEYWORD2
+setRecordPlayState	KEYWORD2
+setVoiceState	KEYWORD2
+recordvoiceStart	KEYWORD2
+playVoiceStart	KEYWORD2
+deleteVoice	KEYWORD2
+recordVoiceEnd	KEYWORD2
+playVoiceEnd	KEYWORD2
+getRecording	KEYWORD2
+getPlaying	KEYWORD2
+getI2CAddress	KEYWORD2
+getButtonMode	KEYWORD2
+getLightMode	KEYWORD2
+getNowState	KEYWORD2
+getVoiceNumber	KEYWORD2
+getTimeRemaining	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+BUTTON_MODE_ON	LITERAL1
+BUTTON_MODE_OFF	LITERAL1
+LIGHT_MODE_ON	LITERAL1
+LIGHT_MODE_OFF	LITERAL1
+VOICE_NUMBER_0	LITERAL1
+VOICE_NUMBER_1	LITERAL1
+VOICE_NUMBER_2	LITERAL1
+VOICE_NUMBER_3	LITERAL1
+VOICE_NUMBER_4	LITERAL1
+VOICE_NUMBER_5	LITERAL1
+VOICE_NUMBER_6	LITERAL1
+VOICE_NUMBER_7	LITERAL1
+VOICE_NUMBER_8	LITERAL1
+VOICE_NUMBER_9	LITERAL1
+EMPTY	LITERAL1
+RECORDEND_STATE	LITERAL1
+I2C_ADDRESS_REGISTER	LITERAL1
+CHINESE_LANGUAGE	LITERAL1
+ENGLISH_LANGUAGE	LITERAL1
+VOICE_SUCCESS	LITERAL1
+VOICE_NONE	LITERAL1
+VOICE_HAVED_AUDIO	LITERAL1
+VOICE_BUSY	LITERAL1
+MODE_ERROR	LITERAL1
+VOICE_SYNTHESIS_MODE	LITERAL1
+VOICE_REPLACE_MODE	LITERAL1
+VOICE_LEN_ERROR	LITERAL1
+VOICE_SYNTHESISING	LITERAL1
+VOICE_PLAYING	LITERAL1
+VOICE_RECORDING	LITERAL1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
