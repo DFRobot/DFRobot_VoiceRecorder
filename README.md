@@ -129,7 +129,7 @@ To use this library, first download the library file, paste it into the \Arduino
    * @brief get time reamaining
    * @return The time range is 0-100
    */
-  uint8_t getTimeRemaining();
+  uint8_t getTimeRemaining(void);
 
   /**
    * @brief start record
@@ -172,7 +172,7 @@ To use this library, first download the library file, paste it into the \Arduino
    *         DATA_ERROR           is data error
    *         MODE_ERROR           is mode error
    */
-  uint8_t VoiceSynthesis(uint8_t language,int64_t number);
+  uint8_t VoiceSynthesis(uint8_t language ,int64_t number);
   
   
   /**
@@ -201,7 +201,10 @@ ESP32              |      √       |              |             |
 
 ## History
 
--  May 21, 2020 - Version 1.0 released.
+-  May      21, 2020 - Version 0.1 released.
+-  October  13, 2020 - Version 0.2 released.
+-  November 6,  2020 - Version 0.3 released.
+-  November 13, 2020 - Version 0.4 released.
 
 ## Credits
 
