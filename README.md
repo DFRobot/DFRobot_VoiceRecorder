@@ -208,4 +208,4 @@ ESP32              |      √       |              |             |
 
 ## Credits
 
-Written by kaixingPeng(kaixing.peng@dfrobot.com), 2020. (Welcome to our [website](https://www.dfrobot.com/))
+Written by ZhiXinLiu(ZhiXin.Liu@dfrobot.com), 2020. (Welcome to our [website](https://www.dfrobot.com/))
