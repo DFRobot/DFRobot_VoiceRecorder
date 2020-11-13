@@ -51,7 +51,9 @@ void setup()
     VOICE_NUMBER_8
     VOICE_NUMBER_9
 */
-  voicerecorder.setVoiceNumber(VOICE_NUMBER_0);
+  if(VOICE_NONE != voicerecorder.setVoiceNumber(VOICE_NUMBER_0)){
+    Serial.println("set number error, please wait!");
+  }
 }
 
 void loop()
@@ -77,10 +79,10 @@ void loop()
       Serial.println("In speech synthesis, please wait!");
     }else if(state == VOICE_BUSY){
       Serial.println("It has been recorded or played, please finish recording or playing first!");
-    }else if(state == VOICE_LEN_ERROR){
-      Serial.println("Data is too long!");
+    }else if(state == DATA_ERROR){
+      Serial.println("data error, Please try again!");
     }else{
-      Serial.println("Mode error!");
+      Serial.println("mode error!");
     }
     delay(300);
   }

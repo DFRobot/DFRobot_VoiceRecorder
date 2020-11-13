@@ -51,7 +51,9 @@ void setup()
     VOICE_NUMBER_8
     VOICE_NUMBER_9
 */
-  voicerecorder.setVoiceNumber(VOICE_NUMBER_0);
+  if(VOICE_NONE != voicerecorder.setVoiceNumber(VOICE_NUMBER_0)){
+    Serial.println("set number error, please wait!");
+  }
 }
 
 void loop()
@@ -60,7 +62,9 @@ void loop()
   if(digitalRead(setVNumber)) {
     if(numbers >= 9) numbers = 0;
     else             numbers++;
-    voicerecorder.setVoiceNumber(numbers);
+    if(VOICE_NONE != voicerecorder.setVoiceNumber(numbers)){
+      Serial.println("set number error, please wait!");
+    }
     delay(200);
   }
 }

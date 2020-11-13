@@ -79,6 +79,7 @@
 #define VOICE_HAVED_AUDIO       0x00
 #define VOICE_BUSY              0x02
 #define MODE_ERROR              0x05
+#define DATA_ERROR              0x0B
 
 
 
@@ -86,7 +87,7 @@
 #define VOICE_SYNTHESIS_MODE    0x01
 #define VOICE_REPLACE_MODE      0x02
 
-#define VOICE_MAX_LEN           0x15
+#define VOICE_MAX_LEN           0x14
 #define VOICE_LEN_ERROR         0x07
 
 
@@ -97,14 +98,17 @@ public:
   
   void setButtonMode(uint8_t mode);
   void setLightMode(uint8_t mode);
-  void setVoiceNumber(uint8_t number);
+  
   void setRecordPlayState(uint8_t state);
   void setVoiceState(uint8_t state);
   
-  uint8_t VoiceSynthesis(uint8_t language ,int32_t number);
+  uint8_t setVoiceNumber(uint8_t number);
+  uint8_t VoiceSynthesis(uint8_t language ,int64_t number);
   uint8_t VoiceSynthesis(uint8_t language ,String string ,uint8_t mode);
   uint8_t synthesisMode(uint8_t language  ,String string);
   uint8_t replaceMode(uint8_t language    ,String string);
+  
+  uint8_t getBit(int32_t number);
   uint8_t recordvoiceStart(void);
   uint8_t playVoiceStart(void);
   uint8_t deleteVoice(void);

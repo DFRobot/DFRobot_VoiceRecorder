@@ -63,14 +63,29 @@ To use this library, first download the library file, paste it into the \Arduino
    * @param VOICE_NUMBER_7   0x07
    * @param VOICE_NUMBER_8   0x08
    * @param VOICE_NUMBER_9   0x09
+   * @return state
+   *    VOICE_SYNTHESISING   is speech synthesis state
+   *    VOICE_PLAYING        is playing state
+   *    VOICE_RECORDING      is recording state
+   *    VOICE_NONE           is idle condition set number success
    */
-  void setVoiceNumber(uint8_t number);
+  uint8_t setVoiceNumber(uint8_t number);
 
   /**
    * @brief get i2c device address
    * @return i2c device address
    */
   uint8_t getI2CAddress();
+
+  /**
+   * @brief get now state
+   * @return state
+   *    VOICE_SYNTHESISING   is speech synthesis state
+   *    VOICE_PLAYING        is playing state
+   *    VOICE_RECORDING      is recording state
+   *    VOICE_NONE           is idle condition
+   */
+  uint8_t getNowState(void);
 
   /**
    * @brief get Button Mode
@@ -154,10 +169,10 @@ To use this library, first download the library file, paste it into the \Arduino
    * @return VOICE_SUCCESS        is speech synthesis success
    *         VOICE_BUSY           is recording or playing. Please finish recording or playing first
    *         VOICE_SYNTHESISING   is In speech synthesis
-   *         VOICE_LEN_ERROR      is Data is too long
+   *         DATA_ERROR           is data error
    *         MODE_ERROR           is mode error
    */
-  uint8_t VoiceSynthesis(uint8_t language,int32_t number);
+  uint8_t VoiceSynthesis(uint8_t language,int64_t number);
   
   
   /**
@@ -170,7 +185,7 @@ To use this library, first download the library file, paste it into the \Arduino
    * @return VOICE_SUCCESS        is speech synthesis success
    *         VOICE_BUSY           is recording or playing. Please finish recording or playing first
    *         VOICE_SYNTHESISING   is In speech synthesis
-   *         VOICE_LEN_ERROR      is Data is too long
+   *         DATA_ERROR           is data error
    *         MODE_ERROR           is mode error
    */
   uint8_t VoiceSynthesis(uint8_t language ,String string ,uint8_t mode);
