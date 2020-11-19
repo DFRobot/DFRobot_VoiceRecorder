@@ -201,7 +201,7 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
     language = NONE;
     return MODE_ERROR;
   }
-  replaceLen = strlen(string1);
+  replaceLen = len;
   if(replaceLen > MAX_REPLACE_LENGTH) replaceLen = MAX_REPLACE_LENGTH;
   for(uint8_t i = 0; i < replaceLen; i++)
     replaceData[i] = (uint8_t)string1[i] - STRING_CHANGE_NUMBER;
@@ -213,8 +213,8 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
       return VOICE_BUSY;                      // The current number is recording or playing. Please finish recording or playing first
     }else{
       sendBuf[0]  = language;
-      memcpy(&sendBuf[MAX_INTEGER + 1] ,replaceData ,MAX_REPLACE_LENGTH);
-      writeData(SYNTHESIS_FLAG ,sendBuf ,MAX_INTEGER + MAX_REPLACE_LENGTH + 1);
+      memcpy(&sendBuf[MAX_INTEGER + 1] ,replaceData ,replaceLen);
+      writeData(SYNTHESIS_FLAG ,sendBuf ,MAX_INTEGER + replaceLen + 1);
       return VOICE_SUCCESS;
     }
   }
