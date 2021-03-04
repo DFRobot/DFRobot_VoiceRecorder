@@ -198,6 +198,7 @@ Arduino uno        |      √       |              |             |
 Mega2560           |      √       |              |             | 
 Lenardo            |      √       |              |             | 
 ESP32              |      √       |              |             | 
+ESP8266            |      √       |              |             | 
 
 ## History
 

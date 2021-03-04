@@ -55,6 +55,7 @@ uint8_t DFRobot_VoiceRecorder::VoiceSynthesis(uint8_t language ,String string ,u
     return MODE_ERROR;
   }
 }
+
 uint8_t DFRobot_VoiceRecorder::getBit(int32_t number)
 {
   int32_t temp  = number;
@@ -76,6 +77,8 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
   uint8_t  pointData[MAX_POINT_LENGTH] = {NONE};
   uint8_t  len = strlen(string.c_str());
   char     string1[100] = {0};
+  DBG(string);
+  DBG(len);
   memcpy(string1 ,string.c_str() ,strlen(string.c_str()));
   if(!((string1[0] >= 0x30 && string1[0] <= 0x39) || (string1[0] == '-')))
   {
@@ -110,7 +113,7 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
     }else{
       if(string1[0] == '-'){ language = MINUS_CHINESE_DOUBLE;  integer *= -1; }
       else {                 language = CHINESE_DOUBLE;       }
-      pointlen = strlen(pointString) - 1;
+      pointlen = strlen(pointString);
       if(pointlen > MAX_POINT_LENGTH) pointlen = MAX_POINT_LENGTH;
       for(uint8_t i = 0; i < pointlen; i++)
         pointData[i] = (uint8_t)pointString[i+1] - STRING_CHANGE_NUMBER;
@@ -123,7 +126,7 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
     }else{
       if(string1[0] == '-'){ language = MINUS_ENGLISH_DOUBLE;  integer *= -1; }
       else {                language = ENGLISH_DOUBLE;        }
-      pointlen = strlen(pointString) - 1;
+      pointlen = strlen(pointString);
       if(pointlen > MAX_POINT_LENGTH) pointlen = MAX_POINT_LENGTH;
       for(uint8_t i = 0; i < pointlen; i++)
         pointData[i] = (uint8_t)pointString[i+1] - STRING_CHANGE_NUMBER;
@@ -132,10 +135,8 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
     language = NONE;
     return MODE_ERROR;
   }
-
   memset(sendBuf ,NONE ,I2C_BUFF_LEN);
-  
-  if(getVoiceSynthesis()) {               // In speech synthesis, please wait
+  if(getVoiceSynthesis()) {                   // In speech synthesis, please wait
     return VOICE_SYNTHESISING;
   }else{
     if(getRecording() == RECORD_PLAY_START || getPlaying() == RECORD_PLAY_START) {
@@ -173,7 +174,6 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
     }
   }
 }
-
 
 uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
 {
@@ -219,7 +219,6 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
     }
   }
 }
-
 
 uint8_t DFRobot_VoiceRecorder::VoiceSynthesis(uint8_t language, int64_t number)
 {
@@ -338,9 +337,6 @@ uint8_t DFRobot_VoiceRecorder::playVoiceEnd(void)
     }
   }
 }
-
-
-
 
 uint8_t DFRobot_VoiceRecorder::getI2CAddress(void)
 {

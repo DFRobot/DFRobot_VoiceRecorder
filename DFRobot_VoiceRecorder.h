@@ -3,6 +3,13 @@
 #include <Arduino.h>
 #include <Wire.h>
 
+//#define ENABLE_DBG                // Open this macro to see the program running in detail
+
+#ifdef ENABLE_DBG
+#define DBG(...) {Serial.print("[");Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
+#else
+#define DBG(...)
+#endif
 
 #define BUTTON_MODE_ON         0
 #define BUTTON_MODE_OFF        1
@@ -60,7 +67,6 @@
 #define SYNTHESIS_HIGH_REGISTER 0x0A
 #define SYNTHESIS_LOW_REGISTER  0x0B
 
-
 #define STRING_CHANGE_NUMBER    0x30
 #define MAX_POINT_LENGTH        0x09
 #define MAX_REPLACE_LENGTH      0x09
@@ -80,9 +86,6 @@
 #define VOICE_BUSY              0x02
 #define MODE_ERROR              0x05
 #define DATA_ERROR              0x0B
-
-
-
 
 #define VOICE_SYNTHESIS_MODE    0x01
 #define VOICE_REPLACE_MODE      0x02
