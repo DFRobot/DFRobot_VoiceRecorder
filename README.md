@@ -206,6 +206,7 @@ ESP8266            |      √       |              |             |
 -  October  13, 2020 - Version 0.2 released.
 -  November 6,  2020 - Version 0.3 released.
 -  November 13, 2020 - Version 0.4 released.
+-  March    11, 2021 - Version 1.0 released.
 
 ## Credits
 

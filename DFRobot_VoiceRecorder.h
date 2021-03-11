@@ -4,11 +4,16 @@
 #include <Wire.h>
 
 //#define ENABLE_DBG                // Open this macro to see the program running in detail
+//#define NORMAL_ENABLE             // normal dbg
 
 #ifdef ENABLE_DBG
-#define DBG(...) {Serial.print("[");Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
+  #ifdef NORMAL_ENABLE
+    #define DBG(...) {Serial.println(__VA_ARGS__);}
+  #else
+    #define DBG(...) {Serial.print("[");Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
+  #endif
 #else
-#define DBG(...)
+  #define DBG(...)
 #endif
 
 #define BUTTON_MODE_ON         0

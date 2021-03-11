@@ -415,7 +415,6 @@ uint8_t DFRobot_VoiceRecorder::getVoiceSynthesis(void)
   return recvBuf[0];
 }
 
-
 DFRobot_VoiceRecorder_I2C::DFRobot_VoiceRecorder_I2C(TwoWire *pWire, uint8_t addr)
 {
   _pWire = pWire;
