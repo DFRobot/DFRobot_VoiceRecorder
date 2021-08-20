@@ -5,6 +5,8 @@ The recording module can record 10 sounds, 100 seconds each, which can be contro
 ---------------------------------------------------------
 DFRobot_VoiceRecorder
 
+#### Basic Display
+![picture](https://github.com/DFRobot/DFRobot_VoiceRecorder/image/DFR0699.png)
 
 ## Table of Contents
 
