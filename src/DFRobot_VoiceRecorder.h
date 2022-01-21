@@ -1,10 +1,20 @@
+/*!
+ * @file DFRobot_VoiceRecorder.h
+ * @brief Define the DFRobot_VoiceRecorder class infrastructure, the implementation of the base method
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @license The MIT License (MIT)
+ * @author [ZhixinLiu](zhixin.liu@dfrobot.com)
+ * @version V1.0
+ * @date 2020-10-13
+ * @url https://github.com/DFRobot/DFRobot_VoiceRecorder
+ */
 #ifndef __DFRobot_VOICERECORDER_H__
 #define __DFRobot_VOICERECORDER_H__
 #include <Arduino.h>
 #include <Wire.h>
 
-//#define ENABLE_DBG                // Open this macro to see the program running in detail
-//#define NORMAL_ENABLE             // normal dbg
+//#define ENABLE_DBG                ///< Open this macro to see the program running in detail
+//#define NORMAL_ENABLE             ///< normal dbg
 
 #ifdef ENABLE_DBG
   #ifdef NORMAL_ENABLE
@@ -104,49 +114,219 @@ public:
   DFRobot_VoiceRecorder(){};
   ~DFRobot_VoiceRecorder(){};
   
+  /**
+   * @fn setButtonMode
+   * @brief Set button mode
+   * @param mode Enable or disable the button function
+   * @n     BUTTON_MODE_ON   0x00 enable button
+   * @n     BUTTON_MODE_OFF  0x01 disable button
+   */
   void setButtonMode(uint8_t mode);
+
+  /**
+   * @fn setLightMode
+   * @brief Set light mode 
+   * @param mode enable or disable lights
+   * @n     LIGHT_MODE_OFF 0x00 disable lights
+   * @n     LIGHT_MODE_ON  0x01 enable lights
+   */
   void setLightMode(uint8_t mode);
   
-  void setRecordPlayState(uint8_t state);
-  void setVoiceState(uint8_t state);
-  
+  /**
+   * @fn setVoiceNumber
+   * @brief set voice number
+   * @param number The audio number to play
+   * @n     VOICE_NUMBER_0   0x00
+   * @n     VOICE_NUMBER_1   0x01
+   * @n     VOICE_NUMBER_2   0x02
+   * @n     VOICE_NUMBER_3   0x03
+   * @n     VOICE_NUMBER_4   0x04
+   * @n     VOICE_NUMBER_5   0x05
+   * @n     VOICE_NUMBER_6   0x06
+   * @n     VOICE_NUMBER_7   0x07
+   * @n     VOICE_NUMBER_8   0x08
+   * @n     VOICE_NUMBER_9   0x09
+   * @return state int type
+   * @retval VOICE_SYNTHESISING is speech synthesis state
+   * @retval VOICE_PLAYING      is playing state
+   * @retval VOICE_RECORDING    is recording state
+   * @retval VOICE_NONE         is idle condition set number success
+   */
   uint8_t setVoiceNumber(uint8_t number);
-  uint8_t VoiceSynthesis(uint8_t language ,int64_t number);
-  uint8_t VoiceSynthesis(uint8_t language ,String string ,uint8_t mode);
-  uint8_t synthesisMode(uint8_t language  ,String string);
-  uint8_t replaceMode(uint8_t language    ,String string);
-  
-  uint8_t getBit(int32_t number);
+
+  /**
+   * @fn getI2CAddress
+   * @brief get i2c device address
+   * @return i2c device address
+   */
+  uint8_t getI2CAddress(void);
+
+  /**
+   * @fn getNowState
+   * @brief get now state
+   * @return state int type
+   * @retval VOICE_SYNTHESISING is speech synthesis state
+   * @retval VOICE_PLAYING      is playing state
+   * @retval VOICE_RECORDING    is recording state
+   * @retval VOICE_NONE         is idle condition
+   */
+  uint8_t getNowState(void);
+
+  /**
+   * @fn getButtonMode
+   * @brief get Button Mode
+   * @return Mode button mode
+   * @retval BUTTON_MODE_ON  0x00
+   * @retval BUTTON_MODE_OFF 0x01
+   */
+  uint8_t getButtonMode(void);
+
+  /**
+   * @fn getLightMode
+   * @brief get light Mode
+   * @return Mode light mode
+   * @retval LIGHT_MODE_OFF  0x00
+   * @retval BUTTON_MODE_OFF 0x01
+   */
+  uint8_t getLightMode(void);
+
+
+  /**
+   * @fn getVoiceNumber
+   * @brief get voice number
+   * @return number int type
+   * @retval VOICE_NUMBER_0  0x00
+   * @retval VOICE_NUMBER_1  0x01
+   * @retval VOICE_NUMBER_2  0x02
+   * @retval VOICE_NUMBER_3  0x03
+   * @retval VOICE_NUMBER_4  0x04
+   * @retval VOICE_NUMBER_5  0x05
+   * @retval VOICE_NUMBER_6  0x06
+   * @retval VOICE_NUMBER_7  0x07
+   * @retval VOICE_NUMBER_8  0x08
+   * @retval VOICE_NUMBER_9  0x09
+   */
+  uint8_t getVoiceNumber(void);
+
+  /**
+   * @fn getVoiceState
+   * @brief get voice state
+   * @return state int type
+   * @retval 0 is Current position has audio
+   * @retval 1 is empty
+   */
+  uint8_t getVoiceState(void);
+
+  /**
+   * @fn getTimeRemaining
+   * @brief get time reamaining
+   * @return The time range is 0-100
+   */
+  uint8_t getTimeRemaining(void);
+
+  /**
+   * @fn recordvoiceStart
+   * @brief start record
+   * @return state
+   * @retval VOICE_SUCCESS is start record
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is Audio already exists delete and record
+   */
   uint8_t recordvoiceStart(void);
+
+  /**
+   * @fn playVoiceStart
+   * @brief start play
+   * @return state
+   * @retval VOICE_SUCCESS is start play
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is no songs in the current number
+   */
   uint8_t playVoiceStart(void);
+
+  /**
+   * @fn deleteVoice
+   * @brief delete voice
+   * @return state
+   * @retval VOICE_SUCCESS is delete success
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is no songs in the current number
+   */
   uint8_t deleteVoice(void);
+
+  /**
+   * @fn recordVoiceEnd
+   * @brief End of the tape
+   * @return state
+   * @retval VOICE_SUCCESS is end success
+   * @retval VOICE_NONE is no begin record
+   */
   uint8_t recordVoiceEnd(void);
+
+  /**
+   * @fn playVoiceEnd
+   * @brief End play
+   * @return VOICE_SUCCESS is end success
+   * @retval VOICE_NONE is no begin record
+   */
   uint8_t playVoiceEnd(void);
 
-  uint8_t getNowState(void);
-  uint8_t getVoiceSynthesis(void);
-  uint8_t getRecording(void);
-  uint8_t getPlaying(void);
-  
-  uint8_t getI2CAddress(void);
-  uint8_t getButtonMode(void);
-  uint8_t getLightMode(void);
-  uint8_t getVoiceNumber(void);
-  uint8_t getVoiceState(void);
-  uint8_t getTimeRemaining(void);
+  /**
+   * @fn voiceSynthesis
+   * @brief speech synthesis
+   * @param language
+   * @n     CHINESE_LANGUAGE 0x01
+   * @n     ENGLISH_LANGUAGE 0x02
+   * @param number range is (999999999 to -999999999)
+   * @return state
+   * @retval VOICE_SUCCESS        is speech synthesis success
+   * @retval VOICE_BUSY           is recording or playing. Please finish recording or playing first
+   * @retval VOICE_SYNTHESISING   is In speech synthesis
+   * @retval DATA_ERROR           is data error
+   * @retval MODE_ERROR           is mode error
+   */
+  uint8_t voiceSynthesis(uint8_t language ,int64_t number);
+
+  /**
+   * @fn voiceSynthesis
+   * @brief speech synthesis
+   * @param language 
+   * @n     CHINESE_LANGUAGE     0x01
+   * @n     ENGLISH_LANGUAGE     0x02
+   * @param string is Input string the scope is determined by the pattern
+   * @param mode
+   * @n     VOICE_SYNTHESIS_MODE range (999999999.999999999  to  -999999999.999999999)
+   * @n     VOICE_REPLACE_MODE   Nine-bit string
+   * @return state
+   * @retval VOICE_SUCCESS       is speech synthesis success
+   * @retval VOICE_BUSY          is recording or playing. Please finish recording or playing first
+   * @retval VOICE_SYNTHESISING  is In speech synthesis
+   * @retval DATA_ERROR          is data error
+   * @retval MODE_ERROR          is mode error
+   */
+  uint8_t voiceSynthesis(uint8_t language ,String string ,uint8_t mode);
+
   uint8_t sendBuf[I2C_BUFF_LEN] = {NONE};
   uint8_t recvBuf[I2C_BUFF_LEN] = {NONE};
 protected:
-  virtual uint8_t readData (uint8_t Reg ,uint8_t *Data ,uint8_t len)=0;
-  virtual void    writeData(uint8_t Reg ,uint8_t *Data ,uint8_t len)=0;
+  uint8_t synthesisMode(uint8_t language  ,String string);
+  uint8_t replaceMode(uint8_t language    ,String string);
+  uint8_t getBit(int32_t number);  
+  uint8_t getVoiceSynthesis(void);
+  uint8_t getRecording(void);
+  uint8_t getPlaying(void);
+  void setRecordPlayState(uint8_t state);
+  void setVoiceState(uint8_t state);
+  virtual uint8_t readData (uint8_t reg ,uint8_t *data ,uint8_t len)=0;
+  virtual void    writeData(uint8_t reg ,uint8_t *data ,uint8_t len)=0;
 };
 
 class DFRobot_VoiceRecorder_I2C:public DFRobot_VoiceRecorder{
 public:
   DFRobot_VoiceRecorder_I2C(TwoWire *pWire=&Wire ,uint8_t addr=0x30);
   ~DFRobot_VoiceRecorder_I2C(){};
-  void writeData(uint8_t Reg,uint8_t *Data,uint8_t len);
-  uint8_t readData(uint8_t Reg,uint8_t *Data,uint8_t len);
+  void writeData(uint8_t reg,uint8_t *data,uint8_t len);
+  uint8_t readData(uint8_t reg,uint8_t *data,uint8_t len);
   uint8_t begin();
 private:
   TwoWire *_pWire;

@@ -31,6 +31,7 @@ getLightMode	KEYWORD2
 getNowState	KEYWORD2
 getVoiceNumber	KEYWORD2
 getTimeRemaining	KEYWORD2
+voiceSynthesis	KEYWORD2
 
 
 #######################################

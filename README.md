@@ -1,215 +1,259 @@
 # DFRobot_VoiceRecorder
-The recording module can record 10 sounds, 100 seconds each, which can be controlled by I2C and manually.
 
-## DFRobot_VoiceRecorder
----------------------------------------------------------
-DFRobot_VoiceRecorder
+- [中文版](./README_CN.md)
 
-#### Basic Display
-![picture](https://github.com/DFRobot/DFRobot_VoiceRecorder/image/DFR0699.png)
+DFR0699 Audio Recording and playback module Pro is the latest integrated voice interaction module launched by DFRobot.  Integrated recording and playback function as a whole, integrated button can record by one button, also support Grevity I2C interface by MCU control recording and playback.  Can store 10 100s audio, support headset and speaker interface output, built-in power amplifier plug and play.  Lets you easily add voice prompts or voice interactions to creative projects. <br>
+
+![效果图](resources/images/DFR0699.jpg)
+
+## Product Link(https://www.dfrobot.com/product-2359.html)
+
+    SKU:DFR0699
 
 ## Table of Contents
 
 * [Summary](#Summary)
-* [Installation](#installation)
-* [Methods](#methods)
-* [Compatibility](#compatibility)
-* [History](#history)
-* [Credits](#credits)
-
-<snippet>
-<content>
-
+* [Installation](#Installation)
+* [Methods](#Methods)
+* [Compatibility](#Compatibility)
+* [History](#History)
+* [Credits](#Credits)
 
 ## Summary
 
-You can set button mode, light mode, manual control number and I2C control, to achieve the recording function
+Recording function :<br>  
+The maximum length of a single recording is 100s, and the maximum length of a recording is 10. Save <br>  
+Speech synthesis :<br>  
+-999999999.999999999 to 999999999.999999999<br>  
+Electrical performance :<br>  
+Operating voltage: 3.3-5V< BR >  
+Physical characteristics :<br>  
+Dimensions :<br>  
+Control interface: I2C  
+I2C address: 0x30-0x39 Configurable <br>  
+Output interface :<br>  
+3.5mm headphone jack < BR >  
+PH2.0 speaker port <br>  
 
 ## Installation
-
-To use this library, first download the library file, paste it into the \Arduino\libraries directory, then open the examples folder and run the demo in the folder.
+There are two methods for using this library:<br>
+1. Open Arduino IDE, search for "DFRobot_VoiceRecorder" on the status bar in Tools ->Manager Libraries and install the library.<br>
+2. Download the library file before use, paste it into \Arduino\libraries directory, then open the examples folder and run the demo in the folder.<br>
 
 ## Methods
 
 ```C++
-
   /**
-   * @brief initialization parameters for i2c
-   * @return 0 or 1, 0 is i2c begin success, 1 is i2c begin error
-   */
-  uint8_t begin();
-
-  /**
+   * @fn setButtonMode
    * @brief Set button mode
-   * @param BUTTON_MODE_ON   0x00
-   * @param BUTTON_MODE_OFF  0x01
+   * @param mode Enable or disable the button function
+   * @n     BUTTON_MODE_ON   0x00 enable button
+   * @n     BUTTON_MODE_OFF  0x01 disable button
    */
   void setButtonMode(uint8_t mode);
 
   /**
-   * @brief Set light mode
-   * @param LIGHT_MODE_OFF   0x00
-   * @param LIGHT_MODE_ON    0x01
+   * @fn setLightMode
+   * @brief Set light mode 
+   * @param mode enable or disable lights
+   * @n     LIGHT_MODE_OFF 0x00 disable lights
+   * @n     LIGHT_MODE_ON  0x01 enable lights
    */
   void setLightMode(uint8_t mode);
-
+  
   /**
+   * @fn setVoiceNumber
    * @brief set voice number
-   * @param VOICE_NUMBER_0   0x00
-   * @param VOICE_NUMBER_1   0x01
-   * @param VOICE_NUMBER_2   0x02
-   * @param VOICE_NUMBER_3   0x03
-   * @param VOICE_NUMBER_4   0x04
-   * @param VOICE_NUMBER_5   0x05
-   * @param VOICE_NUMBER_6   0x06
-   * @param VOICE_NUMBER_7   0x07
-   * @param VOICE_NUMBER_8   0x08
-   * @param VOICE_NUMBER_9   0x09
-   * @return state
-   *    VOICE_SYNTHESISING   is speech synthesis state
-   *    VOICE_PLAYING        is playing state
-   *    VOICE_RECORDING      is recording state
-   *    VOICE_NONE           is idle condition set number success
+   * @param number The audio number to play
+   * @n     VOICE_NUMBER_0   0x00
+   * @n     VOICE_NUMBER_1   0x01
+   * @n     VOICE_NUMBER_2   0x02
+   * @n     VOICE_NUMBER_3   0x03
+   * @n     VOICE_NUMBER_4   0x04
+   * @n     VOICE_NUMBER_5   0x05
+   * @n     VOICE_NUMBER_6   0x06
+   * @n     VOICE_NUMBER_7   0x07
+   * @n     VOICE_NUMBER_8   0x08
+   * @n     VOICE_NUMBER_9   0x09
+   * @return state int type
+   * @retval VOICE_SYNTHESISING is speech synthesis state
+   * @retval VOICE_PLAYING      is playing state
+   * @retval VOICE_RECORDING    is recording state
+   * @retval VOICE_NONE         is idle condition set number success
    */
   uint8_t setVoiceNumber(uint8_t number);
 
   /**
+   * @fn getI2CAddress
    * @brief get i2c device address
    * @return i2c device address
    */
-  uint8_t getI2CAddress();
+  uint8_t getI2CAddress(void);
 
   /**
+   * @fn getNowState
    * @brief get now state
-   * @return state
-   *    VOICE_SYNTHESISING   is speech synthesis state
-   *    VOICE_PLAYING        is playing state
-   *    VOICE_RECORDING      is recording state
-   *    VOICE_NONE           is idle condition
+   * @return state int type
+   * @retval VOICE_SYNTHESISING is speech synthesis state
+   * @retval VOICE_PLAYING      is playing state
+   * @retval VOICE_RECORDING    is recording state
+   * @retval VOICE_NONE         is idle condition
    */
   uint8_t getNowState(void);
 
   /**
+   * @fn getButtonMode
    * @brief get Button Mode
-   * @return Mode 
-   *    BUTTON_MODE_ON   0x00
-   *    BUTTON_MODE_OFF  0x01
-   */
-  uint8_t getButtonMode(void);
-  
-  /**
-   * @brief get light Mode
-   * @return Mode 
-   *    LIGHT_MODE_OFF   0x00
-   *    BUTTON_MODE_OFF  0x01
+   * @return Mode button mode
+   * @retval BUTTON_MODE_ON  0x00
+   * @retval BUTTON_MODE_OFF 0x01
    */
   uint8_t getButtonMode(void);
 
   /**
+   * @fn getLightMode
+   * @brief get light Mode
+   * @return Mode light mode
+   * @retval LIGHT_MODE_OFF  0x00
+   * @retval BUTTON_MODE_OFF 0x01
+   */
+  uint8_t getLightMode(void);
+
+
+  /**
+   * @fn getVoiceNumber
    * @brief get voice number
-   * @return number 
-   *    VOICE_NUMBER_0   0x00
-   *    VOICE_NUMBER_1   0x01
-   *    VOICE_NUMBER_2   0x02
-   *    VOICE_NUMBER_3   0x03
-   *    VOICE_NUMBER_4   0x04
-   *    VOICE_NUMBER_5   0x05
-   *    VOICE_NUMBER_6   0x06
-   *    VOICE_NUMBER_7   0x07
-   *    VOICE_NUMBER_8   0x08
-   *    VOICE_NUMBER_9   0x09
+   * @return number int type
+   * @retval VOICE_NUMBER_0  0x00
+   * @retval VOICE_NUMBER_1  0x01
+   * @retval VOICE_NUMBER_2  0x02
+   * @retval VOICE_NUMBER_3  0x03
+   * @retval VOICE_NUMBER_4  0x04
+   * @retval VOICE_NUMBER_5  0x05
+   * @retval VOICE_NUMBER_6  0x06
+   * @retval VOICE_NUMBER_7  0x07
+   * @retval VOICE_NUMBER_8  0x08
+   * @retval VOICE_NUMBER_9  0x09
    */
   uint8_t getVoiceNumber(void);
 
   /**
+   * @fn getVoiceState
    * @brief get voice state
-   * @return state 0 is Current position has audio 1 is empty
+   * @return state int type
+   * @retval 0 is Current position has audio
+   * @retval 1 is empty
    */
   uint8_t getVoiceState(void);
 
   /**
+   * @fn getTimeRemaining
    * @brief get time reamaining
    * @return The time range is 0-100
    */
   uint8_t getTimeRemaining(void);
 
   /**
+   * @fn recordvoiceStart
    * @brief start record
-   * @return VOICE_SUCCESS is start record ,VOICE_BUSY is repeat recording or playback,VOICE_NONE is Audio already exists, delete and record
+   * @return state
+   * @retval VOICE_SUCCESS is start record
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is Audio already exists delete and record
    */
   uint8_t recordvoiceStart(void);
 
   /**
+   * @fn playVoiceStart
    * @brief start play
-   * @return VOICE_SUCCESS is start play ,VOICE_BUSY is repeat recording or playback,VOICE_NONE is no songs in the current number
+   * @return state
+   * @retval VOICE_SUCCESS is start play
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is no songs in the current number
    */
   uint8_t playVoiceStart(void);
 
   /**
+   * @fn deleteVoice
    * @brief delete voice
-   * @return VOICE_SUCCESS is delete success ,VOICE_BUSY is repeat recording or playback,VOICE_NONE is no songs in the current number
+   * @return state
+   * @retval VOICE_SUCCESS is delete success
+   * @retval VOICE_BUSY is repeat recording or playback
+   * @retval VOICE_NONE is no songs in the current number
    */
   uint8_t deleteVoice(void);
 
   /**
+   * @fn recordVoiceEnd
    * @brief End of the tape
-   * @return VOICE_SUCCESS is end success ,VOICE_NONE is no begin record
+   * @return state
+   * @retval VOICE_SUCCESS is end success
+   * @retval VOICE_NONE is no begin record
    */
   uint8_t recordVoiceEnd(void);
 
   /**
+   * @fn playVoiceEnd
    * @brief End play
-   * @return VOICE_SUCCESS is end success ,VOICE_NONE is no begin record
+   * @return VOICE_SUCCESS is end success
+   * @retval VOICE_NONE is no begin record
    */
   uint8_t playVoiceEnd(void);
 
   /**
+   * @fn voiceSynthesis
    * @brief speech synthesis
-   * @param language is  CHINESE_LANGUAGE     0x01
-   *                     ENGLISH_LANGUAGE     0x02
+   * @param language
+   * @n     CHINESE_LANGUAGE 0x01
+   * @n     ENGLISH_LANGUAGE 0x02
    * @param number range is (999999999 to -999999999)
-   * @return VOICE_SUCCESS        is speech synthesis success
-   *         VOICE_BUSY           is recording or playing. Please finish recording or playing first
-   *         VOICE_SYNTHESISING   is In speech synthesis
-   *         DATA_ERROR           is data error
-   *         MODE_ERROR           is mode error
+   * @return state
+   * @retval VOICE_SUCCESS        is speech synthesis success
+   * @retval VOICE_BUSY           is recording or playing. Please finish recording or playing first
+   * @retval VOICE_SYNTHESISING   is In speech synthesis
+   * @retval DATA_ERROR           is data error
+   * @retval MODE_ERROR           is mode error
    */
-  uint8_t VoiceSynthesis(uint8_t language ,int64_t number);
-  
-  
+  uint8_t voiceSynthesis(uint8_t language ,int64_t number);
+
   /**
+   * @fn voiceSynthesis
    * @brief speech synthesis
-   * @param language is  CHINESE_LANGUAGE     0x01
-   *                     ENGLISH_LANGUAGE     0x02
-   * @param string   is  Input string the scope is determined by the pattern
-   * @param mode     is  VOICE_SYNTHESIS_MODE         range (999999999.999999999  to  -999999999.999999999)
-   *                     VOICE_REPLACE_MODE           Nine-bit string
-   * @return VOICE_SUCCESS        is speech synthesis success
-   *         VOICE_BUSY           is recording or playing. Please finish recording or playing first
-   *         VOICE_SYNTHESISING   is In speech synthesis
-   *         DATA_ERROR           is data error
-   *         MODE_ERROR           is mode error
+   * @param language 
+   * @n     CHINESE_LANGUAGE     0x01
+   * @n     ENGLISH_LANGUAGE     0x02
+   * @param string is Input string the scope is determined by the pattern
+   * @param mode
+   * @n     VOICE_SYNTHESIS_MODE range (999999999.999999999  to  -999999999.999999999)
+   * @n     VOICE_REPLACE_MODE   Nine-bit string
+   * @return state
+   * @retval VOICE_SUCCESS       is speech synthesis success
+   * @retval VOICE_BUSY          is recording or playing. Please finish recording or playing first
+   * @retval VOICE_SYNTHESISING  is In speech synthesis
+   * @retval DATA_ERROR          is data error
+   * @retval MODE_ERROR          is mode error
    */
-  uint8_t VoiceSynthesis(uint8_t language ,String string ,uint8_t mode);
+  uint8_t voiceSynthesis(uint8_t language ,String string ,uint8_t mode);
 ```
+
 ## Compatibility
 
-MCU                | Work Well | Work Wrong | Untested  | Remarks
------------------- | :----------: | :----------: | :---------: | -----
-Arduino uno        |      √       |              |             | 
-Mega2560           |      √       |              |             | 
-Lenardo            |      √       |              |             | 
-ESP32              |      √       |              |             | 
-ESP8266            |      √       |              |             | 
+MCU                | Work Well    | Work Wrong   | Untested    | Remarks
+------------------ | :----------: | :----------: | :---------: | :----:
+Arduino Uno        |      √       |              |             |
+Arduino MEGA2560   |      √       |              |             |
+Arduino Leonardo   |      √       |              |             |
+FireBeetle-ESP32   |      √       |              |             |
+Micro:bit          |              |              |      √      |
+
 
 ## History
 
--  May      21, 2020 - Version 0.1 released.
--  October  13, 2020 - Version 0.2 released.
--  November 6,  2020 - Version 0.3 released.
--  November 13, 2020 - Version 0.4 released.
--  March    11, 2021 - Version 1.0 released.
+- 2020/05/21 - V0.1.0 Version
+- 2020/10/13 - V0.2.0 Version
+- 2020/11/13 - V0.3.0 Version
+- 2021/05/11 - V1.0.0 Version
 
 ## Credits
 
-Written by ZhiXinLiu(ZhiXin.Liu@dfrobot.com), 2020. (Welcome to our [website](https://www.dfrobot.com/))
+Written by ZhixinLiu(zhixin.liu@dfrobot.com), 2021. (Welcome to our [website](https://www.dfrobot.com/))

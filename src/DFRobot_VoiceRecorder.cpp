@@ -1,12 +1,17 @@
+/*!
+ * @file DFRobot_VoiceRecorder.cpp
+ * @brief Define the DFRobot_VoiceRecorder class infrastructure, the implementation of the base method
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @license The MIT License (MIT)
+ * @author [ZhixinLiu](zhixin.liu@dfrobot.com)
+ * @version V1.0
+ * @date 2020-10-13
+ * @url https://github.com/DFRobot/DFRobot_VoiceRecorder
+ */
 #include "DFRobot_VoiceRecorder.h"
 /*
-DFRobot_VoiceRecorder::DFRobot_VoiceRecorder()
-{
-}
-
-DFRobot_VoiceRecorder::~DFRobot_VoiceRecorder()
-{
-}
+DFRobot_VoiceRecorder::DFRobot_VoiceRecorder(){}
+DFRobot_VoiceRecorder::~DFRobot_VoiceRecorder(){}
 */
 
 void DFRobot_VoiceRecorder::setButtonMode(uint8_t mode)
@@ -45,7 +50,7 @@ void DFRobot_VoiceRecorder::setVoiceState(uint8_t state)
   writeData(EMPTY_DELETE_REGISTER ,sendBuf ,1);
 }
 
-uint8_t DFRobot_VoiceRecorder::VoiceSynthesis(uint8_t language ,String string ,uint8_t mode)
+uint8_t DFRobot_VoiceRecorder::voiceSynthesis(uint8_t language ,String string ,uint8_t mode)
 {
   if(VOICE_SYNTHESIS_MODE == mode){
     return synthesisMode(language ,string);
@@ -60,8 +65,7 @@ uint8_t DFRobot_VoiceRecorder::getBit(int32_t number)
 {
   int32_t temp  = number;
   uint8_t count = 0;
-  while(temp != 0)
-  {
+  while(temp != 0){
     temp /= 10;
     count++;
   }
@@ -80,28 +84,22 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
   DBG(string);
   DBG(len);
   memcpy(string1 ,string.c_str() ,strlen(string.c_str()));
-  if(!((string1[0] >= 0x30 && string1[0] <= 0x39) || (string1[0] == '-')))
-  {
+  if(!((string1[0] >= 0x30 && string1[0] <= 0x39) || (string1[0] == '-'))){
     return DATA_ERROR;
   }
-  for(uint8_t i = 1; i < len; i++)
-  {
-    if(!((string1[i] >= 0x30 && string1[i] <= 0x39) || (string1[i] == '.')))
-    {
+  for(uint8_t i = 1; i < len; i++){
+    if(!((string1[i] >= 0x30 && string1[i] <= 0x39) || (string1[i] == '.'))){
       return DATA_ERROR;
     }
-    if(string[i] == '.')
-    {
+    if(string[i] == '.'){
       pointCount++;
     }
-    if(pointCount > 1)
-    {
+    if(pointCount > 1){
       return DATA_ERROR;
     }
   }
   int32_t integer = strtol((const char *)string1 ,&testString ,DECIMAL);
-  if(getBit(integer) > 9)
-  {
+  if(getBit(integer) > 9){
     return DATA_ERROR;
   }
   
@@ -136,14 +134,13 @@ uint8_t DFRobot_VoiceRecorder::synthesisMode(uint8_t language ,String string)
     return MODE_ERROR;
   }
   memset(sendBuf ,NONE ,I2C_BUFF_LEN);
-  if(getVoiceSynthesis()) {                   // In speech synthesis, please wait
+  if(getVoiceSynthesis()){                   // In speech synthesis, please wait
     return VOICE_SYNTHESISING;
   }else{
     if(getRecording() == RECORD_PLAY_START || getPlaying() == RECORD_PLAY_START) {
       return VOICE_BUSY;                      // The current number is recording or playing. Please finish recording or playing first
     }else{
-      switch(language)
-      {
+      switch(language){
         case CHINESE_INTEGER:
         case ENGLISH_INTEGER:
         case MINUS_CHINESE_INTEGER:
@@ -184,10 +181,8 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
   char    string1[100] = {0};
   memcpy(string1 ,string.c_str() ,strlen(string.c_str()));
 
-  for(uint8_t i = 0; i < len; i++)
-  {
-    if(string1[i] >= 0x30 && string1[i] <= 0x39)
-    {
+  for(uint8_t i = 0; i < len; i++){
+    if(string1[i] >= 0x30 && string1[i] <= 0x39){
       string1[j++] = string1[i];
     }
   }
@@ -203,8 +198,9 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
   }
   replaceLen = len;
   if(replaceLen > MAX_REPLACE_LENGTH) replaceLen = MAX_REPLACE_LENGTH;
-  for(uint8_t i = 0; i < replaceLen; i++)
+  for(uint8_t i = 0; i < replaceLen; i++){
     replaceData[i] = (uint8_t)string1[i] - STRING_CHANGE_NUMBER;
+  }
   memset(sendBuf ,NONE ,I2C_BUFF_LEN);
   if(getVoiceSynthesis()){
       return VOICE_SYNTHESISING;
@@ -220,10 +216,9 @@ uint8_t DFRobot_VoiceRecorder::replaceMode(uint8_t language ,String string)
   }
 }
 
-uint8_t DFRobot_VoiceRecorder::VoiceSynthesis(uint8_t language, int64_t number)
+uint8_t DFRobot_VoiceRecorder::voiceSynthesis(uint8_t language, int64_t number)
 {
-  if(number > 999999999 || number < -999999999)
-  {
+  if(number > 999999999 || number < -999999999){
     return DATA_ERROR;
   }
   if(language == CHINESE_LANGUAGE){
@@ -255,7 +250,7 @@ uint8_t DFRobot_VoiceRecorder::VoiceSynthesis(uint8_t language, int64_t number)
 
 uint8_t DFRobot_VoiceRecorder::recordvoiceStart(void)
 {
-  if(getVoiceSynthesis()) {                    // In speech synthesis, please wait
+  if(getVoiceSynthesis()){                     // In speech synthesis, please wait
     return VOICE_SYNTHESISING;
   }else{
     if(getRecording() == RECORDING_STATE) {
@@ -301,7 +296,7 @@ uint8_t DFRobot_VoiceRecorder::deleteVoice(void)
         return VOICE_NONE;                     // You don't need to delete
       }else{
         setVoiceState(DELETE_VOICE);
-        while(getVoiceState() != EMPTY)       // Waiting for deletion to complete
+        while(getVoiceState() != EMPTY)        // Waiting for deletion to complete
           delay(10);
         return VOICE_SUCCESS;
       }
@@ -340,7 +335,7 @@ uint8_t DFRobot_VoiceRecorder::playVoiceEnd(void)
 
 uint8_t DFRobot_VoiceRecorder::getI2CAddress(void)
 {
-  delay(50);
+  delay(150);
   readData(I2C_ADDRESS_REGISTER ,recvBuf ,1);
   return recvBuf[0];
 }
@@ -430,23 +425,24 @@ uint8_t DFRobot_VoiceRecorder_I2C::begin(void)
   return 1;
 }
 
-void DFRobot_VoiceRecorder_I2C::writeData(uint8_t Reg ,uint8_t *Data ,uint8_t len)
+void DFRobot_VoiceRecorder_I2C::writeData(uint8_t reg ,uint8_t *data ,uint8_t len)
 {
   _pWire->beginTransmission(this->_I2C_addr);
-  _pWire->write(Reg);
+  _pWire->write(reg);
   for(uint8_t i = 0; i < len; i++)
-    _pWire->write(Data[i]);
+    _pWire->write(data[i]);
   _pWire->endTransmission();
 }
 
-uint8_t DFRobot_VoiceRecorder_I2C::readData(uint8_t Reg,uint8_t *Data,uint8_t len)
+uint8_t DFRobot_VoiceRecorder_I2C::readData(uint8_t reg,uint8_t *data,uint8_t len)
 {
   int i=0;
   _pWire->beginTransmission(this->_I2C_addr);
-  _pWire->write(Reg);
+  _pWire->write(reg);
   _pWire->endTransmission();
   _pWire->requestFrom((uint8_t)this->_I2C_addr,(uint8_t)len);
   while (_pWire->available()){
-    Data[i++]=_pWire->read();
+    data[i++]=_pWire->read();
   }
+  return 0;
 }

@@ -1,29 +1,27 @@
-/*
+/*!
  * @file recorder.ino
- * @This application realizes the recording and play function, press the recording, then press the play.
- * @Press the button after recording to play, and press the button after playing to record.
- *
+ * @brief use example
+ * @details application realizes the recording and play function, press the recording, then press the play.
+ * @details the button after recording to play, and press the button after playing to record.
  * @copyright Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence   The MIT License (MIT)
- * @author    [JunfengZheng](junfeng.zheng@dfrobot.com)
- * @version   V1.0
- * @date      2021-08-04
- * @get from https://www.dfrobot.com
+ * @license The MIT License (MIT)
+ * @author [JunfengZheng](junfeng.zheng@dfrobot.com)
+ * @version V1.0
+ * @date 2021-08-04
  * @url https://github.com/DFRobot/DFRobot_VoiceRecorder
  */
- 
 #include "DFRobot_VoiceRecorder.h"
-#define I2C_ADDRESS  (0x30)
+#define VOICE_ADDRESS  (0x30)
 #define BUTTON_PIN   (D10)
-DFRobot_VoiceRecorder_I2C voicerecorder(&Wire, I2C_ADDRESS);
+DFRobot_VoiceRecorder_I2C voicerecorder(&Wire, VOICE_ADDRESS);
 bool playing = false;
 
 void record(void)
 {
-  //When you press the button 
+  // When you press the button 
   if((digitalRead(BUTTON_PIN)==HIGH)&&(playing==false))
   {
-    voicerecorder.setVoiceNumber(VOICE_NUMBER_2);//Select Audio NO.2
+    voicerecorder.setVoiceNumber(VOICE_NUMBER_2); //Select Audio NO.2
     voicerecorder.deleteVoice();
     Serial.println("Delete Voice");
     voicerecorder.recordvoiceStart();
@@ -32,7 +30,7 @@ void record(void)
       Serial.println(n);
       delay(1000);
     }
-    voicerecorder.recordVoiceEnd();//Recode End
+    voicerecorder.recordVoiceEnd(); //Recode End
     Serial.println("Recode End");
     playing=true;
   }
@@ -40,10 +38,10 @@ void record(void)
 
 void play(void)
 {
-  //release the button
+  // release the button
   if((digitalRead(BUTTON_PIN)==LOW)&&(playing==true))
   {
-    voicerecorder.setVoiceNumber(VOICE_NUMBER_2);//Select Audio NO.2
+    voicerecorder.setVoiceNumber(VOICE_NUMBER_2); // Select Audio NO.2
     voicerecorder.playVoiceStart();
     Serial.println("play recording");
     for (int8_t n = 22; n > 0; n--){
