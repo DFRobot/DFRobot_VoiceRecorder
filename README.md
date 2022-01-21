@@ -21,19 +21,12 @@ DFR0699 Audio Recording and playback module Pro is the latest integrated voice i
 
 ## Summary
 
-Recording function :<br>  
-The maximum length of a single recording is 100s, and the maximum length of a recording is 10. Save <br>  
-Speech synthesis :<br>  
--999999999.999999999 to 999999999.999999999<br>  
-Electrical performance :<br>  
-Operating voltage: 3.3-5V< BR >  
-Physical characteristics :<br>  
-Dimensions :<br>  
-Control interface: I2C  
-I2C address: 0x30-0x39 Configurable <br>  
-Output interface :<br>  
-3.5mm headphone jack < BR >  
-PH2.0 speaker port <br>  
+- Recording function : The maximum length of a single recording is 100s, and the maximum length of a recording is 10. Save <br>  
+- Speech synthesis : -999999999.999999999 to 999999999.999999999<br>  
+- Operating voltage: 3.3-5V<br>
+- Control interface : I2C<br>
+- I2C address : 0x30-0x39 Configurable <br>  
+- Output interface : 3.5mm headphone jack, PH2.0 speaker port <br>  
 
 ## Installation
 There are two methods for using this library:<br>
